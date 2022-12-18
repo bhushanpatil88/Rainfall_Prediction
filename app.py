@@ -14,14 +14,16 @@ df = pd.read_csv("data_set/weatherAUS.csv")
 
 
 @app.route("/")
+@app.route("/home")
 def Home():
     locations = sorted(df['Location'].unique())
+   
     new_loc = []
     i=0
     for x in locations:
         new_loc.append([x,i])
         i+=1
-
+    
     wind9ams = df['WindDir9am'].unique()
     wind9ams = np.delete(wind9ams,8)
     wind9ams = sorted(wind9ams)
@@ -58,6 +60,10 @@ def predict():
    
     feat = df.iloc[103,1:-1].values
     prediction = pipe.predict(features3)[0]
+    # if prediction==1:
+    #     return render_template()
+    # else: return render_template()
+    
     return render_template("index.html", prediction_msg = f"Rainfall will be there :  {prediction}")
 
 if __name__ == "__main__":
