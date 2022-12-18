@@ -60,11 +60,11 @@ def predict():
    
     feat = df.iloc[103,1:-1].values
     prediction = pipe.predict(features3)[0]
-    # if prediction==1:
-    #     return render_template()
-    # else: return render_template()
+    if prediction==1:
+        return render_template("Rain.html")
+    else: return render_template("NoRain.html")
     
-    return render_template("index.html", prediction_msg = f"Rainfall will be there :  {prediction}")
+    # return render_template("index.html", prediction_msg = f"Rainfall will be there :  {prediction}")
 
 if __name__ == "__main__":
     app.run(debug=True)
