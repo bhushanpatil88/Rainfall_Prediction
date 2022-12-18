@@ -7,8 +7,8 @@ import numpy as np
 
 # Create flask app
 app = Flask(__name__)
-pipe = pickle.load(open('ML model/pipe.pkl','rb'))
-df = pd.read_csv("data_set/weatherAUS.csv")
+pipe = pickle.load(open('./pipe.pkl','rb'))
+df = pd.read_csv("./weatherAUS.csv")
 
 
 
