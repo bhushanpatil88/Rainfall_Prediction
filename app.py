@@ -7,8 +7,8 @@ import numpy as np
 
 # Create flask app
 app = Flask(__name__)
-pipe = pickle.load(open('./pipe.pkl','rb'))
-df = pd.read_csv("./weatherAUS.csv")
+pipe = pickle.load(open('ML model/pipe.pkl','rb'))
+df = pd.read_csv("data_set/weatherAUS.csv")
 
 
 
@@ -64,7 +64,6 @@ def predict():
         return render_template("Rain.html")
     else: return render_template("NoRain.html")
     
-    # return render_template("index.html", prediction_msg = f"Rainfall will be there :  {prediction}")
 
 if __name__ == "__main__":
     app.run(debug=True)
