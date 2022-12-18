@@ -17,13 +17,25 @@ body {
     background-size: cover;
 }
 
-.form {
-    margin: 3rem 20rem;
+.form {   
+    margin: 3rem 7rem; 
     padding: 3rem 3rem;
     background: linear-gradient(to right, rgba(137, 247, 254, 0.6), rgba(102, 166, 255, 0.6));
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
+}
+
+@media (max-width: 1024px){
+    .form {   
+        margin: 3rem 2rem;        
+    } 
+}
+
+@media (max-width: 640px){
+    .form {   
+        margin: 3rem 0;        
+    } 
 }
 
 .heading {
