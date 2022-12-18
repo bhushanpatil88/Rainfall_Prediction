@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.5/dist/flowbite.min.css" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+
+    <title>Rain Fall Prediction</title>
+</head>
+
+<body>
+    <h1 class="heading text-7xl text-center text-white font-medium">Rain Fall Prediction</h1>
+    <div class="form rounded-lg">
+        <form action="{{ url_for('predict')}}" method="post">
+            <div class="grid grid-cols-6 gap-6">
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="password"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Location</label>
+                    <select type="text" id="Location" name = 'Location'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Location" required>
+                            {% for location,i in locations%}
+                                <option value="{{i}}" >{{location}}</option>
+                            {% endfor %}
+                    </select>
+                </div>
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                  
+                    <label for="email"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">MinTemp</label>
+                    <input type="text" id="MinTemp"
+                        name = 'MinTemp'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="MinTemp" required>
+                </div>
+                
+            </div>
+            <div class="grid grid-cols-6 gap-6">
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="password"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">MaxTemp</label>
+                    <input type="text" id="MaxTemp"
+                        name = 'MaxTemp'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="MaxTemp" required>
+                </div>
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="email"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Rainfall</label>
+                    <input type="text" id="Rainfall"
+                        name = 'Rainfall'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Rainfall" required>
+                </div>
+            </div>
+            <div class="grid grid-cols-6 gap-6">
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="password"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Evaporation</label>
+                    <input type="text" id="Evaporation"
+                        name = 'Evaporation'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Evaporation" required>
+                </div>
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="email"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Sunshine</label>
+                    <input type="text" id="Sunshine"
+                        name = 'Sunshine'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Sunshine" required>
+                </div>
+                
+            </div>
+            <div class="grid grid-cols-6 gap-6">
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="password"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">WindGustDir</label>
+                        <select type="text" id="WindGustDir"
+                        name = 'WindGustDir'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="WindGustDir" name="WindGustDir" required>
+                            {% for windgust,i in windgusts%}
+                                <option value="{{i}}" >{{windgust}}</option>
+                            {% endfor %}
+                    </select>
+                </div> 
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="email"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">WindGustSpeed</label>
+                    <input type="text" id="WindGustSpeed"
+                    name = 'WindGustSpeed'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="WindGustSpeed" required>
+                </div>
+                
+                
+            </div>
+            <div class="grid grid-cols-6 gap-6">
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="email"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">WindDir9am</label>
+                        <select type="text" id="WindDir9am"
+                        name = 'WindDir9am'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="WindDir9am"  required>
+                            {% for wind9am,i in wind9ams%}
+                                <option value="{{i}}" >{{wind9am}}</option>
+                            {% endfor %}
+                    </select>
+                </div>
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="password"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">WindDir3pm</label>
+                        <select type="text" id="WindDir3pm"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="WindDir3pm" name="WindDir3pm" required>
+                            {% for wind3pm,i in wind3pms%}
+                                <option value="{{i}}" >{{wind3pm}}</option>
+                            {% endfor %}
+                    </select>
+                </div>
+            
+            </div>
+
+            <div class="grid grid-cols-6 gap-6">
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="email"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">WindSpeed9am</label>
+                        <input type="text" id="WindSpeed9am"
+                    name = 'WindSpeed9am'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="WindSpeed9am" required>
+                </div>
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="password"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">WindSpeed3pm</label>
+                        <input type="text" id="WindSpeed3pm"
+                    name = 'WindSpeed3pm'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="WindSpeed3pm" required>
+                </div>
+            
+            </div>
+
+            <div class="grid grid-cols-6 gap-6">
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="email"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Humidity9am</label>
+                    <input type="text" id="Humidity9am"
+                    name = 'Humidity9am'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Humidity9am" required>
+                </div>
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="password"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Humidity3pm</label>
+                    <input type="text" id="Humidity3pm"
+                    name = 'Humidity3pm'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Humidity3pm" required>
+                </div>
+               
+                
+                
+            </div>
+            <div class="grid grid-cols-6 gap-6">
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="email"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Pressure9am</label>
+                    <input type="text" id="Pressure9am"
+                    name = 'Pressure9am'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Pressure9am" required>
+                </div>
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="password"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Pressure3pm</label>
+                    <input type="text" id="Pressure3pm"
+                    name = 'Pressure3pm'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Pressure3pm" required>
+                </div>
+                
+                
+                
+            </div>
+            <div class="grid grid-cols-6 gap-6">
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="email"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Cloud9am</label>
+                    <input type="text" id="Cloud9am"
+                    name = 'Cloud9am'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Cloud9am" required>
+                </div>
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="password"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Cloud3pm</label>
+                    <input type="text" id="Cloud3pm"
+                    name = 'Cloud3pm'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Cloud3pm" required>
+                </div>
+                
+                
+                
+            </div>
+            <div class="grid grid-cols-6 gap-6">
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="email"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Temp9am</label>
+                    <input type="text" id="Temp9am"
+                    name = 'Temp9am'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Temp9am" required>
+                </div>
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="password"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Temp3pm</label>
+                    <input type="text" id="Temp3pm"
+                    name = 'Temp3pm'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Temp3pm" required>
+                </div>
+                
+                               
+            </div>
+            <div class="grid grid-cols-6 gap-6">
+                <div class="col-span-6 sm:col-span-3 mb-6">
+                    <label for="email"
+                        class="block mb-2 text-md font-medium text-gray-900 dark:text-white">RainToday</label>
+                        <select type="text" id="RainToday"
+                        name = 'RainToday'
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="RainToday" name="RainToday" required>
+                                <option value=1 >YES</option>
+                                <option value=0 >NO</option>         
+                    </select>
+                </div>
+                
+                
+            </div>
+
+            <div class="grid gap-6">
+                <button type="submit"
+                    class="button text-white font-medium rounded-lg text-lg w-full sm:w-auto px-5 py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Predict</button>
+            </div>
+    </div>
+
+
+
+    </form>
+    <div>
+        <h1><center> {{ prediction_msg }} </center></h1>
+    </div>
+
+
+    </div>
+</body>
+
+<script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>
+
+</html>
